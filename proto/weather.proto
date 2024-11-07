@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package weather;
+
+option go_package = "example.com/m/proto";
+
+// Enum for temperature scale
+enum TemperatureScale {
+    CELSIUS = 0;
+    FAHRENHEIT = 1;
+}
+
+// Request message with city and temperature scale
+message WeatherRequest {
+    string city = 1;
+    TemperatureScale scale = 2;
+}
+
+// Response message with city, temperature, and temperature scale
+message WeatherResponse {
+    string city = 1;
+    double temperature = 2;
+    TemperatureScale scale = 3;
+}
+
+// Service definition with bi-directional streaming method
+service WeatherService {
+    rpc GetWeatherStream(stream WeatherRequest) returns (stream WeatherResponse);
+}
